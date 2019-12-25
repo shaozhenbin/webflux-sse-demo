@@ -3,18 +3,26 @@ package com.szb.webfluxssedemo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.keyvalue.annotation.KeySpace;
+import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.TimeToLive;
 
-@Document // <1>
+import java.io.Serializable;
+import java.time.Duration;
+
 @Data // <2>
 @AllArgsConstructor
 @NoArgsConstructor
-class Profile {
+public class Profile implements Serializable {
 
-    @Id // <3>
+    private static final long serialVersionUID = 1L;
+     // <3>
     private String id;
 
     // <4>
     private String email;
+
+
 }

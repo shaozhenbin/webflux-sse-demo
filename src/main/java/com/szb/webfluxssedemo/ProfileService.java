@@ -39,10 +39,10 @@ class ProfileService {
             .flatMap(p -> this.profileRepository.deleteById(p.getId()).thenReturn(p));
     }
 
-    public Mono<Profile> create(String email) { // <7>
+    public Mono<Profile> create(Profile profile) { // <7>
         log.debug("------------------create-----------------");
         return this.profileRepository
-            .save(new Profile(null, email))
-            .doOnSuccess(profile -> this.publisher.publishEvent(new ProfileCreatedEvent(profile)));
+            .save(profile)
+            .doOnSuccess(savedProfile -> this.publisher.publishEvent(new ProfileCreatedEvent(savedProfile)));
     }
 }

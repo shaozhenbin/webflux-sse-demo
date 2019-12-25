@@ -45,7 +45,8 @@ public class ProfileServiceTest {
 
     @Test
     public void save() {
-        Mono<Profile> profileMono = this.service.create("email@email.com");
+
+        Mono<Profile> profileMono = this.service.create(new Profile("001", "email@email.com"));
         StepVerifier
             .create(profileMono)
             .expectNextMatches(saved -> StringUtils.hasText(saved.getId()))
@@ -55,8 +56,9 @@ public class ProfileServiceTest {
     @Test
     public void delete() {
         String test = "test";
+
         Mono<Profile> deleted = this.service
-            .create(test)
+            .create( new Profile("001", test))
             .flatMap(saved -> this.service.delete(saved.getId()));
         StepVerifier
             .create(deleted)
@@ -67,7 +69,7 @@ public class ProfileServiceTest {
     @Test
     public void update() throws Exception {
         Mono<Profile> saved = this.service
-            .create("test")
+            .create(new Profile("001", "test"))
             .flatMap(p -> this.service.update(p.getId(), "test1"));
         StepVerifier
             .create(saved)
@@ -79,7 +81,7 @@ public class ProfileServiceTest {
     public void getById() {
         String test = UUID.randomUUID().toString();
         Mono<Profile> deleted = this.service
-            .create(test)
+            .create(new Profile("001", "test"))
             .flatMap(saved -> this.service.get(saved.getId()));
         StepVerifier
             .create(deleted)

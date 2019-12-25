@@ -1,5 +1,6 @@
 package com.szb.webfluxssedemo;
 
+import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +11,10 @@ import java.net.URI;
 
 @RestController // <1>
 @RequestMapping(value = "/profiles", produces = MediaType.APPLICATION_JSON_VALUE)  // <2>
+@Slf4j
 class ProfileRestController {
 
-    private final MediaType mediaType = MediaType.APPLICATION_JSON_UTF8;
+    private final MediaType mediaType = MediaType.APPLICATION_JSON;
     private final ProfileService profileService;
 
     ProfileRestController(ProfileService profileRepository) {
@@ -35,7 +37,7 @@ class ProfileRestController {
     @PostMapping
     Publisher<ResponseEntity<Profile>> create(@RequestBody Profile profile) {
         return this.profileService
-            .create(profile.getEmail())
+            .create(profile)
             .map(p -> ResponseEntity.created(URI.create("/profiles/" + p.getId()))
                 .contentType(mediaType)
                 .build());
