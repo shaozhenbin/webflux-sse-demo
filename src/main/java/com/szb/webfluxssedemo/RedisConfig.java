@@ -23,18 +23,35 @@ import java.time.Duration;
 public class RedisConfig {
 
     @Bean
-    public ReactiveRedisTemplate<String, Object> reactiveRedisTemplate(
+    public ReactiveRedisTemplate<String, Profile> reactiveRedisTemplate(
             final ReactiveRedisConnectionFactory reactiveRedisConnectionFactory) {
         RedisSerializer<String> keySerializer = new StringRedisSerializer();
-        RedisSerializer<Object> valueSerializer = new Jackson2JsonRedisSerializer(Object.class);
-        RedisSerializationContext<String, Object> serializationContext = RedisSerializationContext
-                .<String, Object>newSerializationContext()
+        RedisSerializer<Profile> valueSerializer = new Jackson2JsonRedisSerializer(Profile.class);
+        RedisSerializationContext<String, Profile> serializationContext = RedisSerializationContext
+                .<String, Profile>newSerializationContext()
                 .key(keySerializer)
                 .value(valueSerializer)
                 .hashKey(keySerializer)
                 .hashValue(valueSerializer)
                 .build();
-        return new ReactiveRedisTemplate(reactiveRedisConnectionFactory, serializationContext);
+        return new ReactiveRedisTemplate<String, Profile>(reactiveRedisConnectionFactory, serializationContext);
     }
+
+    //reactive redis object序列化报错
+//    @Bean
+//    public ReactiveRedisTemplate<String, Object> reactiveRedisTemplate(
+//            final ReactiveRedisConnectionFactory reactiveRedisConnectionFactory) {
+//        RedisSerializer<String> keySerializer = new StringRedisSerializer();
+//        RedisSerializer<Object> valueSerializer = new Jackson2JsonRedisSerializer(Object.class);
+//        RedisSerializationContext<String, Object> serializationContext = RedisSerializationContext
+//                .<String, Object>newSerializationContext()
+//                .key(keySerializer)
+//                .value(valueSerializer)
+//                .hashKey(keySerializer)
+//                .hashValue(valueSerializer)
+//                .build();
+//        return new ReactiveRedisTemplate<String, Object>(reactiveRedisConnectionFactory, serializationContext);
+//    }
+
 
 }

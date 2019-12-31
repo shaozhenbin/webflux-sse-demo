@@ -12,7 +12,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
 
-@Component
 class GenericPublisher<T extends ApplicationEvent> implements
         ApplicationListener<T>, // <1>
     Consumer<FluxSink<T>> { //<2>

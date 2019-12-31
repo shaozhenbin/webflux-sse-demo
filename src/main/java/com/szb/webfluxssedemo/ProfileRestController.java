@@ -34,13 +34,18 @@ class ProfileRestController {
     }
 
     // <5>
-    @PostMapping
+    @PostMapping("")
     Publisher<ResponseEntity<Profile>> create(@RequestBody Profile profile) {
         return this.profileService
             .create(profile)
-            .map(p -> ResponseEntity.created(URI.create("/profiles/" + p.getId()))
-                .contentType(mediaType)
-                .build());
+            .map(p ->
+                    {
+                        log.debug("P----------{}", p.getId());
+                        return ResponseEntity.created(URI.create("/profiles/" + p.getId()))
+                                .contentType(mediaType)
+                                .build();
+                    }
+                   );
     }
 
     @DeleteMapping("/{id}")
@@ -55,7 +60,7 @@ class ProfileRestController {
             .flatMap(p -> this.profileService.update(id, p.getEmail()))
             .map(p -> ResponseEntity
                 .ok()
-                .contentType(this.mediaType)
+                .contentType(mediaType)
                 .build());
     }
 }
