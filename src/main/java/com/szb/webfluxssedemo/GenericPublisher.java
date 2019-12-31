@@ -19,7 +19,7 @@ class GenericPublisher<T extends ApplicationEvent> implements
 
     private final Executor executor;
     private final BlockingQueue<T> queue =
-        new LinkedBlockingQueue<>(); // <3>
+        new LinkedBlockingQueue<T>(); // <3>
 
     GenericPublisher(@Qualifier("applicationTaskExecutor") Executor executor) {
         this.executor = executor;

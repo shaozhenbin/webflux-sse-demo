@@ -43,6 +43,6 @@ class ProfileService {
         log.debug("------------------create-----------------");
         return this.profileRepository
             .save(profile)
-            .doOnSuccess(savedProfile -> this.publisher.publishEvent(new ProfileCreatedEvent(savedProfile)));
+            .doOnSuccess(p -> this.publisher.publishEvent(new ProfileCreatedEvent(p)));
     }
 }

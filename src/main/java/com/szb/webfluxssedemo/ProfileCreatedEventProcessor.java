@@ -44,16 +44,16 @@ public class ProfileCreatedEventProcessor {
 //   @EventListener(condition = "#event.success")
     // @Async
     //使用注解方式,spring events默认同步处理，若开启异步，需配置线程池，每次开启一个新线程处理，线程创建和销毁开销大
-    @EventListener
-    public void handleSuccessful(ProfileCreatedEvent event) {
-        log.debug("--------------handleSuccessful--------------");
-        System.out.println("Handling generic event (conditional).");
-    }
-
-    @EventListener
-    public void handleSuccessful2(ProfileCreatedEvent event) {
-        log.debug("--------------handleSuccessful2--------------");
-        System.out.println("Handling generic event (conditional2).");
-    }
+//    @EventListener
+//    public void handleSuccessful(ProfileCreatedEvent event) {
+//        log.debug("--------------handleSuccessful--------------");
+//        System.out.println("Handling generic event (conditional).");
+//    }
+//
+//    @EventListener
+//    public void handleSuccessful2(ProfileCreatedEvent event) {
+//        log.debug("--------------handleSuccessful2--------------");
+//        System.out.println("Handling generic event (conditional2).");
+//    }
 
 }

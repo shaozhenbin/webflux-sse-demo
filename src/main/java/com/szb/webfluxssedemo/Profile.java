@@ -15,9 +15,7 @@ import java.time.Duration;
 @Data // <2>
 @AllArgsConstructor
 @NoArgsConstructor
-public class Profile implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Profile {
      // <3>
     private String id;
 
